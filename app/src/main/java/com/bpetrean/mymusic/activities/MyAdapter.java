@@ -1,6 +1,7 @@
-package com.bpetrean.mymusic;
+package com.bpetrean.mymusic.activities;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,20 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bpetrean.mymusic.R;
+import com.bpetrean.mymusic.persistence.SongEntity;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+
     private Context context;
-    private List<Song> songs;
+    private List<SongEntity> songs;
     private OnSongClickedListener listener;
 
-    public MyAdapter(Context context, List<Song> songs, OnSongClickedListener listener) {
-        this.context=context;
+    public MyAdapter(Context context, List<SongEntity> songs, OnSongClickedListener listener) {
+        this.context = context;
         this.songs = songs;
         this.listener = listener;
     }
@@ -33,7 +37,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.bind(this.context,songs.get(position), listener);
+        holder.bind(this.context, songs.get(position), listener);
     }
 
     @Override
@@ -47,34 +51,22 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public TextView detailsTextView;
         public ImageView imageView;
         public TextView titleTextView;
+        public ImageView sourceTextView;
 
         public MyViewHolder(View v) {
             super(v);
             view = v;
             titleTextView = v.findViewById(R.id.song_title_text_view);
-            detailsTextView= v.findViewById(R.id.song_title2_text_view);
-            imageView=v.findViewById(R.id.song_image_image_view);
+            detailsTextView = v.findViewById(R.id.song_details_text_view);
+            imageView = v.findViewById(R.id.song_image_image_view);
+            sourceTextView = v.findViewById(R.id.song_source_image_view);
         }
 
-        public void bind(Context context, final Song song, final OnSongClickedListener listener) {
-            String songName;
-            String songAuthor;
-            String[] parts = song.getName().split("-");
-
-            if (parts.length < 2) {
-                songName = parts[0];
-                songAuthor = "Unknown author";
-            } else {
-                songAuthor = parts[0];
-                songName = parts[1];
-                if (songName.startsWith(" ")) {
-                     songName = songName.substring(1);
-                }
-            }
-
-            titleTextView.setText(songName);
-            detailsTextView.setText(songAuthor);
-            Glide.with(context).load(song.getImg()).into(imageView);
+        public void bind(Context context, final SongEntity song, final OnSongClickedListener listener) {
+            titleTextView.setText(song.getTitle());
+            detailsTextView.setText(song.getAuthor());
+            sourceTextView.setImageDrawable(getSongSourceImage(context, song.getSource()));
+            Glide.with(context).load(song.getImageUrl()).into(imageView);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -83,13 +75,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 }
             });
         }
+
+        public Drawable getSongSourceImage(Context context, String source) {
+            switch (source) {
+                case "/yt":
+                    return context.getResources().getDrawable(R.drawable.ic_youtube_svg);
+                case "/sc":
+                    return context.getResources().getDrawable(R.drawable.ic_soundcloud_svg);
+                case "/vi":
+                    return context.getResources().getDrawable(R.drawable.ic_vinevimeo_svg);
+                default:
+                    return context.getResources().getDrawable(R.drawable.ic_youtube_svg);
+            }
+        }
     }
+
 
     /**
      * This interface is used in order to handle the click on a song in the songs list.
      */
     public interface OnSongClickedListener {
 
-        void onSongClicked(Song song);
+        void onSongClicked(SongEntity song);
     }
 }

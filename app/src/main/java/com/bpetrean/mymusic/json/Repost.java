@@ -1,4 +1,4 @@
-package com.bpetrean.mymusic;
+package com.bpetrean.mymusic.json;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

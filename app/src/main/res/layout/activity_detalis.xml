@@ -5,44 +5,64 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DetailsActivity">
+    tools:context=".activities.DetailsActivity">
 
-
-    <ImageView
-        android:id="@+id/song_image_image_view"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="40dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@color/colorPrimary"
-        tools:src="@color/colorPrimaryDark" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/details_first_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/song_image_image_view"
-        android:text="Title song"
-        tools:text="            Title song           " />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/details_second_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+            <ImageView
+                android:id="@+id/song_image_image_view"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="@dimen/song_image_margin_top"
+                android:layout_marginBottom="40dp"
+                android:src="@color/colorPrimary"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@color/colorPrimaryDark" />
 
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_first_text_view"
-        android:text="Author Song"
-        tools:text="            Author Song            " />
+            <TextView
+                android:id="@+id/details_first_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="80dp"
+                android:fontFamily="@font/niramit_semibold"
+                android:textColor="@color/black"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="1dp"
+                android:text="Title song"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/song_image_image_view"
+                tools:text="Title song" />
+
+            <TextView
+                android:id="@+id/details_second_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="@dimen/song_image_margin_bottom"
+                android:fontFamily="@font/niramit_medium"
+                android:text="Author Song"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/details_first_text_view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Cupcake ipsum dolor sit amet bear claw. Lollipop sesame snaps chupa chups brownie macaroon tart pudding chocolate cake" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_id"
@@ -50,8 +70,8 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="40dp"
-        app:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_plus_24"
+        app:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
